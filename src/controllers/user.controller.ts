@@ -54,4 +54,13 @@ export async function singIn(req: Request, res: Response) {
   if (!user) {
     return res.status(400).json({ message: "The User does not Exists" });
   }
+
+  const isMatch = await user.comparePassword(req.body.password);
+  if (isMatch) {
+    return res.status(400).json({ token: createToken(user) });
+  }
+
+  return res.status(400).json({
+    message: "The email or password are incorrect",
+  });
 }
