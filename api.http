@@ -1,0 +1,23 @@
+### Create user
+POST http://localhost:3333/signup
+Content-Type: application/json
+
+{
+  "email": "person@gmail.com",
+  "password": "password"
+}
+
+### Make login
+POST http://localhost:3333/signin
+Content-Type: application/json
+
+{
+  "email": "person@gmail.com",
+  "password": "password"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+### Authorization by token, part 2. Use token to authorize.
+GET http://localhost:3333/special
+Authorization: Bearer {{auth_token}}
